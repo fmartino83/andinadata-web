@@ -6,4 +6,4 @@ Sitio web de Andina Data (página única estática, servida con GitHub Pages).
 - `img/hero.jpg`: foto de fondo del inicio (Unsplash, licencia libre — "blue sky", foto QN1Sz74hVjg).
 - `CNAME`: dominio personalizado para GitHub Pages.
 
-Formulario de contacto: configurar `FORM_ENDPOINT` en `index.html` (Formspree). Mientras esté vacío, abre el cliente de correo hacia info@andinadata.com.
+Formulario de contacto: se envía a Formspree (`FORM_ENDPOINT` en `index.html`), que reenvía las respuestas a info@andinadata.com. Si `FORM_ENDPOINT` queda vacío, abre el cliente de correo del visitante.

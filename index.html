@@ -402,9 +402,9 @@
 </dialog>
 
 <script>
-  // Endpoint del servicio de formularios (Formspree: https://formspree.io/f/XXXXXXX).
+  // Endpoint del servicio de formularios (Formspree).
   // Mientras esté vacío, el formulario abre el cliente de correo con las respuestas.
-  const FORM_ENDPOINT = "";
+  const FORM_ENDPOINT = "https://formspree.io/f/xrpbnrer";
   const CONTACT_EMAIL = "info@andinadata.com";
 
   const dialog = document.getElementById("form-dialog");
@@ -468,6 +468,7 @@
       return;
     }
 
+    data.append("_subject", `Consulta web — ${data.get("nombre")}${data.get("marco_todas") === "Sí" ? " (marcó TODAS)" : ""}`);
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando…";
     try {
