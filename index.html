@@ -86,6 +86,7 @@
   .banner-box { margin-top: -40px; background: linear-gradient(120deg, #1d3a3a, #142527); border: 1px solid #2c4c4c; border-radius: 22px; padding: 46px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
   .banner-box h2 { font-size: clamp(28px, 4.4vw, 44px); margin: 0; }
   .banner-box h2 em { font-style: normal; color: var(--alert); }
+  .banner-box h2 .lupa { width: .9em; height: .9em; margin-left: .3em; vertical-align: -.1em; color: var(--alert); }
   .banner-box p { margin: 8px 0 0; color: var(--muted); }
 
   /* Propuesta */
@@ -217,7 +218,7 @@
     <div class="wrap">
       <div class="banner-box">
         <div>
-          <h2>¿Tu empresa gestiona con datos… <em>o a ojo?</em></h2>
+          <h2>¿Tu empresa gestiona con datos… <em>o a ojo?</em><svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></h2>
           <p>Si la respuesta te hizo dudar, es momento de conversar.</p>
         </div>
         <button class="btn btn-primary" data-open-form>Quiero gestionar con datos</button>
