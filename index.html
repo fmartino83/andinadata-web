@@ -129,7 +129,7 @@
   .founder { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 30px; }
   .founder .avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1d5f5a); display: grid; place-items: center; font-weight: 700; font-size: 22px; color: var(--accent-ink); margin-bottom: 16px; }
   .founder h3 { font-size: 22px; margin-bottom: 4px; }
-  .founder .role { color: var(--muted); margin-bottom: 16px; }
+  .founder .role { color: var(--muted); margin: 0 0 16px; padding: 0; list-style: none; line-height: 1.7; }
   .cert { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); font-size: 16px; }
   .cert svg { color: var(--accent-strong); width: 20px; height: 20px; flex: none; }
 
@@ -250,7 +250,12 @@
         <article class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
           <h3>Control de gestión</h3>
-          <p>Organizamos tu empresa con plantillas, indicadores (KPIs) y tableros para tomar decisiones con información real, no con intuición.</p>
+          <p>Contamos con perfiles funcionales, en su mayoría licenciados en Administración, para que juntos construyamos tu modelo de control de gestión empresarial: plantillas, indicadores (KPIs) y tableros para decidir con información real.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg></div>
+          <h3>Transformación digital</h3>
+          <p>Planeemos y construyamos juntos tu camino de transformación digital y modernización: procesos, sistemas y datos al servicio de tu negocio.</p>
         </article>
         <article class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17v-4M12 17V8M16 17v-6"/></svg></div>
@@ -304,7 +309,12 @@
       <div class="founder">
         <div class="avatar" aria-hidden="true">FM</div>
         <h3>Federico Martino</h3>
-        <div class="role">Consultor tecnológico, especializado en data analytics</div>
+        <ul class="role">
+          <li>Fundador</li>
+          <li>Consultor tecnológico</li>
+          <li>Transformación digital</li>
+          <li>Especializado en data analytics</li>
+        </ul>
         <div class="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>Certificado Business Analyst</div>
         <div class="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>Certificado Data Architect</div>
       </div>
