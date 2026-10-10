@@ -167,11 +167,13 @@
   .choices label { font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
   .choices input { accent-color: var(--accent); }
   .choices label:has(input:checked) { border-color: var(--accent); background: rgba(47,179,168,.12); }
-  .suggest { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; color: var(--muted); }
-  .suggest button { font: inherit; font-size: 13px; color: var(--accent-strong); background: rgba(47,179,168,.10); border: 1px dashed rgba(47,179,168,.5); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
-  .suggest button:hover { background: rgba(47,179,168,.2); }
-  .suggest button.all { background: var(--accent); color: var(--accent-ink); border-style: solid; border-color: var(--accent); font-weight: 700; letter-spacing: .06em; }
-  .suggest button.all:hover { background: var(--accent-strong); }
+  .needs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .needs label { font-weight: 500; font-size: 13px; margin: 0; display: flex; align-items: center; gap: 7px; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+  .needs input { accent-color: var(--accent); margin: 0; }
+  .needs label:has(input:checked) { border-color: var(--accent); background: rgba(47,179,168,.12); color: var(--accent-strong); }
+  .needs button.all { font: inherit; font-size: 13px; font-weight: 700; letter-spacing: .06em; background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .needs button.all:hover { background: var(--accent-strong); }
+  .field-error { color: var(--alert); font-size: 13px; margin: 6px 0 0; }
   .form-note { color: var(--muted); font-size: 13px; margin: 0; }
   .form-ok { padding: 40px 28px; text-align: center; display: none; }
   .form-ok h3 { font-size: 24px; }
@@ -376,17 +378,20 @@
 
       <div>
         <label for="f-q1"><span class="qnum">1.</span>¿Cuál es la necesidad primaria de tu empresa? ¿Cuál es hoy tu mayor dolor?</label>
-        <div class="suggest" aria-label="Sugerencias">
-          <span>Sugerencias:</span>
-          <button type="button">No sé dónde pierdo dinero</button>
-          <button type="button">No sé qué productos me dejan margen</button>
-          <button type="button">Los reportes me llevan días</button>
-          <button type="button">No sé cómo mejorar mis ventas</button>
-          <button type="button">Necesito nuevos reportes</button>
-          <button type="button">Necesito un tablero de gestión 360</button>
+        <div class="needs" role="group" aria-label="Necesidades">
+          <label><input type="checkbox" name="necesidades" value="No sé dónde pierdo dinero"> No sé dónde pierdo dinero</label>
+          <label><input type="checkbox" name="necesidades" value="No sé qué productos me dejan margen"> No sé qué productos me dejan margen</label>
+          <label><input type="checkbox" name="necesidades" value="Los reportes me llevan días"> Los reportes me llevan días</label>
+          <label><input type="checkbox" name="necesidades" value="No sé cómo mejorar mis ventas"> No sé cómo mejorar mis ventas</label>
+          <label><input type="checkbox" name="necesidades" value="Necesito nuevos reportes"> Necesito nuevos reportes</label>
+          <label><input type="checkbox" name="necesidades" value="Necesito un tablero de gestión 360"> Necesito un tablero de gestión 360</label>
+          <label><input type="checkbox" name="necesidades" value="Necesito automatizar un proceso"> Necesito automatizar un proceso</label>
+          <label><input type="checkbox" name="necesidades" value="Necesito un bot"> Necesito un bot</label>
+          <label><input type="checkbox" name="necesidades" value="Quiero modernizar mi empresa"> Quiero modernizar mi empresa</label>
           <button type="button" class="all" data-all>TODAS</button>
         </div>
-        <textarea id="f-q1" name="necesidad_primaria" required placeholder="Ej.: no sé dónde pierdo dinero, no sé qué productos me dejan margen, los reportes me llevan días…"></textarea>
+        <textarea id="f-q1" name="necesidad_primaria" placeholder="Contanos con tus palabras (opcional si marcaste alguna opción)"></textarea>
+        <p class="field-error" id="q1-error" hidden>Marcá al menos una opción o contanos tu necesidad.</p>
       </div>
 
       <fieldset>
@@ -445,22 +450,21 @@
   dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
 
   const q1 = document.getElementById("f-q1");
+  const q1Error = document.getElementById("q1-error");
   const todasFlag = document.getElementById("f-todas");
-  const suggestions = [...document.querySelectorAll(".suggest button:not([data-all])")];
-  function addSuggestion(text) {
-    if (q1.value.includes(text)) return;
-    q1.value = q1.value.trim() ? `${q1.value.trim()}. ${text}` : text;
-  }
-  suggestions.forEach(b => b.addEventListener("click", () => { addSuggestion(b.textContent); q1.focus(); }));
-  document.querySelector(".suggest [data-all]").addEventListener("click", () => {
-    suggestions.forEach(b => addSuggestion(b.textContent));
+  const needs = [...document.querySelectorAll('.needs input[name="necesidades"]')];
+  document.querySelector(".needs [data-all]").addEventListener("click", () => {
+    needs.forEach(c => { c.checked = true; });
     todasFlag.value = "Sí";
-    q1.focus();
+    q1Error.hidden = true;
   });
+  needs.forEach(c => c.addEventListener("change", () => { q1Error.hidden = true; }));
+  q1.addEventListener("input", () => { q1Error.hidden = true; });
 
   function showThanks() {
     form.reset();
     todasFlag.value = "No";
+    q1Error.hidden = true;
     formWrap.style.display = "none";
     formOk.style.display = "block";
   }
@@ -470,6 +474,16 @@
     const data = new FormData(form);
     if (data.get("_gotcha")) return;
 
+    const selected = needs.filter(c => c.checked).map(c => c.value);
+    if (!selected.length && !q1.value.trim()) {
+      q1Error.hidden = false;
+      q1.focus();
+      return;
+    }
+    data.delete("necesidades");
+    data.set("necesidades_seleccionadas", selected.length ? selected.join(" · ") : "-");
+    data.set("necesidad_primaria", q1.value.trim() || "-");
+
     if (!FORM_ENDPOINT) {
       const body = [
         `Nombre: ${data.get("nombre")}`,
@@ -477,7 +491,8 @@
         `Teléfono: ${data.get("telefono")}`,
         `Empresa: ${data.get("empresa") || "-"}`,
         "",
-        `1. Necesidad primaria / mayor dolor:\n${data.get("necesidad_primaria")}`,
+        `1. Necesidades marcadas: ${data.get("necesidades_seleccionadas")}`,
+        `   Texto libre: ${data.get("necesidad_primaria")}`,
         `   Marcó TODAS: ${data.get("marco_todas")}`,
         "",
         `2. ¿Sabías que con control de gestión avanzado tu empresa mejorará sus resultados? ${data.get("conoce_control_gestion")}`,
