@@ -454,8 +454,9 @@
   const todasFlag = document.getElementById("f-todas");
   const needs = [...document.querySelectorAll('.needs input[name="necesidades"]')];
   document.querySelector(".needs [data-all]").addEventListener("click", () => {
-    needs.forEach(c => { c.checked = true; });
-    todasFlag.value = "Sí";
+    const selectAll = !needs.every(c => c.checked);
+    needs.forEach(c => { c.checked = selectAll; });
+    todasFlag.value = selectAll ? "Sí" : "No";
     q1Error.hidden = true;
   });
   needs.forEach(c => c.addEventListener("change", () => { q1Error.hidden = true; }));
