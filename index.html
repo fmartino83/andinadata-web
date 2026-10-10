@@ -112,6 +112,17 @@
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .tag { font-size: 13px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--text); }
 
+  /* Productos */
+  .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 44px; }
+  .product { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; }
+  .product .num { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .1em; margin-bottom: 10px; }
+  .product h3 { font-size: 20px; }
+  .product ul { list-style: none; padding: 0; margin: 4px 0 22px; display: grid; gap: 10px; flex: 1; }
+  .product li { display: flex; gap: 10px; color: var(--muted); font-size: 16px; line-height: 1.45; }
+  .product li::before { content: ""; flex: none; width: 7px; height: 7px; margin-top: .55em; border-radius: 50%; background: var(--accent); }
+  .product li b { color: var(--text); font-weight: 600; }
+  .product .btn { align-self: flex-start; }
+
   /* Proceso */
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 44px; counter-reset: step; }
   @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
@@ -193,6 +204,7 @@
     <ul>
       <li><a href="#propuesta">Propuesta</a></li>
       <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#productos">Productos</a></li>
       <li><a href="#proceso">Cómo trabajamos</a></li>
       <li><a href="#nosotros">Quiénes somos</a></li>
     </ul>
@@ -289,6 +301,50 @@
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a3 3 0 0 1 2 5 3 3 0 0 1-2 5v1a4 4 0 0 1-8 0v-1a3 3 0 0 1-2-5 3 3 0 0 1 2-5V6a4 4 0 0 1 4-4z"/><path d="M12 8v8"/></svg></div>
           <h3>Machine Learning e IA</h3>
           <p>Modelos predictivos y soluciones de IA generativa aplicadas a tu negocio: pronósticos, automatización y asistentes sobre tus datos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos">
+    <div class="wrap">
+      <div class="eyebrow">Productos</div>
+      <h2 style="font-size: clamp(30px,4vw,42px)">Soluciones listas para tu rubro</h2>
+      <p class="lead">Software propio, pensado para negocios reales y listo para implementar.</p>
+      <div class="products">
+        <article class="product">
+          <div class="num">01</div>
+          <h3>Software para deliverys</h3>
+          <ul>
+            <li><span><b>Carta digital</b> siempre actualizada.</span></li>
+            <li><span><b>Agente de WhatsApp</b> que responde consultas y toma pedidos.</span></li>
+            <li><span><b>Cobro automatizado</b> de cada pedido.</span></li>
+          </ul>
+          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+        </article>
+        <article class="product">
+          <div class="num">02</div>
+          <h3>Software para restós y afines</h3>
+          <ul>
+            <li><span><b>Propina por QR:</b> el cliente deja la propina escaneando un código y se acredita en una cuenta especial o individual.</span></li>
+          </ul>
+          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+        </article>
+        <article class="product">
+          <div class="num">03</div>
+          <h3>Software para retail y minoristas</h3>
+          <ul>
+            <li><span><b>Conector con Tiendanube y Shopify</b> para integrar tu tienda online con tu gestión.</span></li>
+          </ul>
+          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+        </article>
+        <article class="product">
+          <div class="num">04</div>
+          <h3>Páginas web</h3>
+          <ul>
+            <li><span><b>Sitios profesionales</b> para tu empresa o comercio.</span></li>
+          </ul>
+          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
         </article>
       </div>
     </div>
