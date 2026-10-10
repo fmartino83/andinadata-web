@@ -321,7 +321,7 @@
             <li><span><b>Cobro automatizado</b> de cada pedido.</span></li>
             <li><span><b>Cobro opcional de propinas</b> junto con el pedido.</span></li>
           </ul>
-          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+          <button class="btn btn-ghost btn-sm" data-open-product="Software para deliverys">Quiero saber más</button>
         </article>
         <article class="product">
           <div class="num">02</div>
@@ -329,7 +329,7 @@
           <ul>
             <li><span><b>Propina por QR:</b> el cliente deja la propina escaneando un código y se acredita en una cuenta especial o individual.</span></li>
           </ul>
-          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+          <button class="btn btn-ghost btn-sm" data-open-product="Software para restós y afines">Quiero saber más</button>
         </article>
         <article class="product">
           <div class="num">03</div>
@@ -340,7 +340,7 @@
             <li><span><b>Gestión de envíos:</b> consulta de costos y plazos de los correos.</span></li>
             <li><span><b>Cobro integrado</b> de cada venta.</span></li>
           </ul>
-          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+          <button class="btn btn-ghost btn-sm" data-open-product="Software para retail y minoristas">Quiero saber más</button>
         </article>
         <article class="product">
           <div class="num">04</div>
@@ -348,7 +348,7 @@
           <ul>
             <li><span><b>Sitios profesionales</b> para tu empresa o comercio.</span></li>
           </ul>
-          <button class="btn btn-ghost btn-sm" data-open-form>Quiero saber más</button>
+          <button class="btn btn-ghost btn-sm" data-open-product="Páginas web">Quiero saber más</button>
         </article>
       </div>
     </div>
@@ -488,6 +488,62 @@
   </div>
 </dialog>
 
+<dialog id="product-dialog" aria-labelledby="product-title">
+  <div id="product-wrap">
+    <div class="modal-head">
+      <div>
+        <h2 id="product-title">Consulta por productos</h2>
+        <p>Contanos sobre tu negocio y te mostramos cómo funciona.</p>
+      </div>
+      <button class="x" type="button" aria-label="Cerrar" data-close-product>×</button>
+    </div>
+    <form id="product-form">
+      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="tipo_consulta" value="Producto">
+      <div>
+        <label for="p-producto">Producto de interés</label>
+        <select id="p-producto" name="producto" required>
+            <option>Software para deliverys</option>
+            <option>Software para restós y afines</option>
+            <option>Software para retail y minoristas</option>
+            <option>Páginas web</option>
+        </select>
+      </div>
+      <div class="row2">
+        <div><label for="p-nombre">Nombre</label><input id="p-nombre" name="nombre" type="text" required autocomplete="name"></div>
+        <div><label for="p-email">Email</label><input id="p-email" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="row2">
+        <div><label for="p-telefono">Teléfono</label><input id="p-telefono" name="telefono" type="tel" required autocomplete="tel" placeholder="Ej.: +54 9 2945 123456"></div>
+        <div><label for="p-negocio">Nombre del negocio <span style="font-weight:400;color:var(--muted)">(opcional)</span></label><input id="p-negocio" name="negocio" type="text" autocomplete="organization"></div>
+      </div>
+      <div class="row2">
+        <div><label for="p-ciudad">Ciudad</label><input id="p-ciudad" name="ciudad" type="text" required autocomplete="address-level2"></div>
+        <div><label for="p-sucursales">Cantidad de locales</label>
+          <select id="p-sucursales" name="locales" required>
+            <option value="" disabled selected>Elegí una opción</option>
+            <option>1</option>
+            <option>2 a 5</option>
+            <option>Más de 5</option>
+            <option>Solo online</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="p-comentario">¿Qué te gustaría resolver? <span style="font-weight:400;color:var(--muted)">(opcional)</span></label>
+        <textarea id="p-comentario" name="comentario" placeholder="Contanos acerca de tus necesidades (opcional)"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" id="p-submit">Enviar consulta</button>
+      <p class="form-note">Usamos tus datos solo para responderte. Si preferís, escribinos a <a href="mailto:info@andinadata.com">info@andinadata.com</a>.</p>
+    </form>
+  </div>
+  <div class="form-ok" id="product-ok">
+    <h3>¡Gracias!</h3>
+    <p>Recibimos tu consulta. Te vamos a contactar a la brevedad.</p>
+    <button class="btn btn-ghost" type="button" data-close-product>Cerrar</button>
+  </div>
+</dialog>
+
 <script>
   // Endpoint del servicio de formularios (Formspree).
   // Mientras esté vacío, el formulario abre el cliente de correo con las respuestas.
@@ -578,6 +634,44 @@
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "Enviar";
+    }
+  });
+
+  const productDialog = document.getElementById("product-dialog");
+  const productForm = document.getElementById("product-form");
+  const productWrap = document.getElementById("product-wrap");
+  const productOk = document.getElementById("product-ok");
+  const productSubmit = document.getElementById("p-submit");
+
+  document.querySelectorAll("[data-open-product]").forEach(b => b.addEventListener("click", () => {
+    productForm.reset();
+    productForm.producto.value = b.dataset.openProduct;
+    productWrap.style.display = "";
+    productOk.style.display = "none";
+    productDialog.showModal();
+  }));
+  document.querySelectorAll("[data-close-product]").forEach(b => b.addEventListener("click", () => productDialog.close()));
+  productDialog.addEventListener("click", e => { if (e.target === productDialog) productDialog.close(); });
+
+  productForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const data = new FormData(productForm);
+    if (data.get("_gotcha")) return;
+    data.set("comentario", (data.get("comentario") || "").trim() || "-");
+    data.append("_subject", `Consulta producto — ${data.get("producto")} — ${data.get("nombre")}`);
+    productSubmit.disabled = true;
+    productSubmit.textContent = "Enviando…";
+    try {
+      const res = await fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error(res.status);
+      productForm.reset();
+      productWrap.style.display = "none";
+      productOk.style.display = "block";
+    } catch {
+      alert(`No pudimos enviar la consulta. Escribinos a ${CONTACT_EMAIL}.`);
+    } finally {
+      productSubmit.disabled = false;
+      productSubmit.textContent = "Enviar consulta";
     }
   });
 </script>
